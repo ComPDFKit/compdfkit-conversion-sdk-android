@@ -8,6 +8,8 @@ import java.io.FileOutputStream
 
 class ConversionHelper {
     companion object {
+        var isInstalled: Boolean = false
+
         fun installAIModel(context: Context) {
             ConverterManager.initialize()
             ConverterManager.setLogger(true, true);
@@ -33,6 +35,7 @@ class ConversionHelper {
             }
             val modelDir = File(context.filesDir, "resource/models/documentai.model").absolutePath
             ConverterManager.setAIModel(modelDir, OCRLanguage.ENGLISH)
+            isInstalled = true
         }
     }
 }

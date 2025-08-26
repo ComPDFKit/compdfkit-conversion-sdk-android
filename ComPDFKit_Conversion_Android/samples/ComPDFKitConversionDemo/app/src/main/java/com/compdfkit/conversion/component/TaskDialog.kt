@@ -102,7 +102,7 @@ private fun FilePathSelector(
         label = { Text("PDF Path") },
         trailingIcon = {
             IconButton(onClick = {
-                launcher.launch(arrayOf("application/pdf"))
+                launcher.launch(arrayOf("application/pdf", "image/*"))
             }) {
                 Icon(Icons.Default.Folder, "File Select")
             }

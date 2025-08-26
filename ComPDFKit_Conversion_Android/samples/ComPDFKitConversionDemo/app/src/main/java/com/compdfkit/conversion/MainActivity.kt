@@ -19,7 +19,6 @@ import androidx.lifecycle.lifecycleScope
 import com.compdfkit.conversion.component.ConvertMainPage
 import com.compdfkit.conversion.ui.theme.ComPDFKitConversionDemoTheme
 import com.compdfkit.conversion.utils.AppContextHolder
-import com.compdfkit.conversion.utils.PermissionStateManager
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -27,53 +26,17 @@ import kotlinx.coroutines.withContext
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        lifecycleScope.launch {
-            withContext(Dispatchers.IO) {
-                ConversionHelper.installAIModel(this@MainActivity)
-            }
-        }
+//        lifecycleScope.launch {
+//            withContext(Dispatchers.IO) {
+//                ConversionHelper.installAIModel(this@MainActivity)
+//            }
+//        }
         AppContextHolder.init(this)
         enableEdgeToEdge()
         setContent {
             ComPDFKitConversionDemoTheme {
-                PermissionCheckScreen()
+                ConvertMainPage()
             }
-        }
-    }
-}
-
-@Composable
-fun PermissionCheckScreen() {
-    val context = LocalContext.current
-    val lifecycleOwner = LocalLifecycleOwner.current
-    var hasPermission by remember { mutableStateOf(false) }
-    val permissionManager = remember { PermissionStateManager(context) }
-
-    val lifecycleObserver = remember {
-        LifecycleEventObserver { _, event ->
-            if (event == Lifecycle.Event.ON_RESUME) {
-                // 每次返回应用时检查权限
-                hasPermission = permissionManager.checkManageStoragePermission()
-            }
-        }
-    }
-
-    DisposableEffect(lifecycleOwner) {
-        lifecycleOwner.lifecycle.addObserver(lifecycleObserver)
-        onDispose {
-            lifecycleOwner.lifecycle.removeObserver(lifecycleObserver)
-        }
-    }
-
-    // 应用启动时自动检查权限
-    LaunchedEffect(Unit) {
-        hasPermission = permissionManager.checkManageStoragePermission()
-    }
-
-    // 根据权限状态显示不同UI
-    when {
-        hasPermission -> {
-            ConvertMainPage()
         }
     }
 }

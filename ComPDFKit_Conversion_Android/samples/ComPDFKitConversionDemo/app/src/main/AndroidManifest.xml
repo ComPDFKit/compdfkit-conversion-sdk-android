@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission
         android:name="android.permission.MANAGE_EXTERNAL_STORAGE"
         android:minSdkVersion="30"
@@ -28,8 +28,5 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <meta-data
-            android:name="conversion_license"
-            android:value="B6SoMVOP7o10guPQaM9ylhzSgPnNpelvsKaZCOHFbUsqSZtUv5Qj37J6KS98xFHqAuxA5Qv43bKYbU6XNlVzq5/QKMktFns2NkcP8fzsCtxdDUsOHs7TDoELh9ZeNT70NnqFp/DUPFYZi9Ckkaqnhb+tRh1iMl52lgX8Ku4+rcroweShyEWFjTgyTDnKLJM8+h7zYmdUDAyBDzbGZCcVYJ9GydWbQ7kulRSkW3iQ96Ab/jb//ilwC1WJIljkssIVLj90OKA/53K690zDhM8+3OQBa/Hs8Mr4LXLTbGD6tCJ4CwRvgvt3JtPdOGRO4qigtUHy1DVe6FLRSX3lAzRhvq8kD+Q9C95FZo3W7DLPF5KHAYEs2RF7Z9toqEufbP3GkrSF8rrxDKX4enQyBHWqvGS6GOoXvUoQdfWOPB1gcTammWeSvvag4wrVVnBKf0mURuhlIOvssb9IQOgzzN7bVM/4Wu10G7037suVOaNLq7oe1jpq/rY86x/3DCADjT8SEbQQ9Xg4/3r+aORj1MId+0gVusE/Tqjcp3dmNqQj/Pi8wbuugkcO5G8jiFIOxitJtafo14hiD8c+XZHmibaf0mSc1iVtuHBhZTFhkup+L6Qgh7kq7soeyX4bU2tS9R8/jF7i0/jKom3qTkre1u0IGRqKi/fNKu/e5CeMvqysL8EPO/pADHF3Jh+dAhOW0mnbj0AS+u6O6+BW4LrMR7cuVaekwwQvAr6a7Jt34MeZafigJYGkKbPZ1JJFMu1zbWRryFlTWilteBjIVCBY2NZalNy23wNRqyp7wrBUC7V7CW89KBUo0LkjrL4ZBCUfIBBAG/B1tCmblU/dMaf/0iiTsuubqZ7NNd50kLpVVQKy2BqM6sQqacODSuEteLvrE2lS" />
     </application>
 </manifest>

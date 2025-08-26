@@ -1,3 +1,55 @@
+ComPDFKit Conversion SDK v3.1.0 Release Date: 19 August 2025
+=====================================================
+
+Enhanceo Features
+
+Core:
+- Added support for recognizing underline and strikethrough styles applied to non-annotation text elements.
+
+PDF to Word:
+- Added font substitution capability while preserving layout fidelity to the original document.
+- Added support for table border styles, accurately reproducing original PDF table border colors and thickness.
+- Added support for detecting and converting hyphenated word breaks at paragraph line ends.
+- Added support for detecting and converting ordered list styles in the ""(1)"" format.
+
+PDF to Excel:
+- Added font substitution capability while preserving layout fidelity to the original document.
+- Added support for table border styles, accurately reproducing original PDF table border colors and thickness.
+- Improved text paragraph alignment within the converted output.
+
+PDF to PowerPoint:
+- Added font substitution capability while preserving layout fidelity to the original document.
+- Added support for table border styles, accurately reproducing original PDF table border colors and thickness.
+- Improved paragraph alignment within table cells.
+
+PDF to Image:
+- Added support for TGA, GIF, and JPEG2000 output formats.
+
+Issues Addressed
+
+Core:
+- Fixed an issue where certain characters were missing under specific conditions.
+- Fixed an issue where table cell background colors were incorrectly detected under certain conditions.
+
+PDF to Word:
+- Fixed an issue where images inside tables could be lost under certain conditions.
+- Fixed an issue where embedded images inside lists could be lost.
+- Fixed an issue where images with ""top and bottom"" text wrapping were positioned incorrectly in some cases.
+- Fixed an issue where hyperlink properties were lost under certain conditions.
+- Fixed an issue where table heights were calculated incorrectly in certain scenarios.
+
+PDF to Excel:
+- Fixed an issue where excessively large numbers could not be displayed correctly.
+
+PDF to PowerPoint:
+- Improved text layout stability to prevent formatting shifts in certain cases.
+
+PDF to JSON:
+- Fixed an issue where text paragraphs could be lost under certain conditions.
+
+PDF to Markdown:
+- Fixed an issue where text paragraphs could be lost under certain conditions.
+
 ComPDFKit Conversion SDK v3.0.0 Release Date: 06 June 2025
 =============================================================
 

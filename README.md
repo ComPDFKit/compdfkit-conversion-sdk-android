@@ -9,7 +9,7 @@ Effortlessly integrate the ComPDFKit Conversion SDK into your projects in just a
 - Convert PDF to PowerPoint (.pptx)
 - Convert PDF to HTML (.html)
 - Convert PDF to CSV (.csv)
-- Convert PDF to Image (.png, .jpg, .jpeg, .bmp, .tiff)
+- Convert PDF to Image (.png, .jpg, .jpeg,.jpeg2000, .bmp, .tiff,.tga,.gif)
 - Convert PDF to Plain Text (.txt)
 - Convert PDF to Rich Text Format (.rtf)
 - Convert PDF to Structured Data (.json)

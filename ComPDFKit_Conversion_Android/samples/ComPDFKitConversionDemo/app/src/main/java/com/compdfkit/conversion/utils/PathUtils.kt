@@ -127,7 +127,9 @@ class PathUtils {
             if (isNeedZip && getFileSuffix(outputPath).isBlank()) {
                 val imagePath = File(outputPath)
                 if (!imagePath.exists()) {
-                    imagePath.mkdir()
+                    if (!imagePath.mkdirs()) {
+                        Log.e("PathUtils", "make: $imagePath failed")
+                    }
                 }
             }
 

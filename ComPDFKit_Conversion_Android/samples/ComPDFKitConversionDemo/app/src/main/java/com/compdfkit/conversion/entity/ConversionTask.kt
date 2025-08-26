@@ -8,9 +8,23 @@ import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
 import com.compdfkit.conversion.ComPDFKitConverter
+import com.compdfkit.conversion.ConversionHelper
 import com.compdfkit.conversion.ConverterManager
-import com.compdfkit.conversion.base.*
+import com.compdfkit.conversion.base.ErrorCode
+import com.compdfkit.conversion.base.ExcelOptions
+import com.compdfkit.conversion.base.ExcelWorksheetOption
+import com.compdfkit.conversion.base.HtmlOptions
+import com.compdfkit.conversion.base.ImageOptions
+import com.compdfkit.conversion.base.JsonOptions
+import com.compdfkit.conversion.base.MarkdownOptions
+import com.compdfkit.conversion.base.OCRLanguage
+import com.compdfkit.conversion.base.PptOptions
+import com.compdfkit.conversion.base.ProgressCallback
+import com.compdfkit.conversion.base.RtfOptions
+import com.compdfkit.conversion.base.SearchablePdfOptions
+import com.compdfkit.conversion.base.TxtOptions
 import com.compdfkit.conversion.base.WordOptions
+import com.compdfkit.conversion.utils.AppContextHolder
 import com.compdfkit.conversion.utils.PathUtils
 import java.io.File
 
@@ -36,6 +50,10 @@ data class ConversionTask(
 
     @RequiresApi(Build.VERSION_CODES.Q)
     fun startTask() {
+        if (!ConversionHelper.isInstalled) {
+            ConversionHelper.installAIModel(AppContextHolder.get())
+        }
+
         val isNeedZip = (type == ConversionType.IMAGE) ||
                 (type == ConversionType.MARKDOWN) ||
                 (type == ConversionType.JSON && (options as JsonOptions).containImage) ||
