@@ -1,7 +1,51 @@
+ComPDFKit Conversion SDK v3.2.0 Release Date: 17 November 2025
+=====================================================
+
+Enhanced Features
+
+Core:
+- Improved document layout restoration effects.
+- Optimized conversion speed.
+- Added functionality to output each page as a separate document.
+
+PDF to Word:
+- Added support for setting text styles for list bullets.
+- Improved paragraph alignment detection.
+- Added support for recognizing superscript text.
+
+PDF to Excel:
+- Added an option to automatically create folders. When enabled, folders will be created to store CSV files when multiple CSVs are generated.
+- PDF to PowerPoint:
+- Added support for setting text styles for list bullets.
+
+PDF to Image:
+- Added support for the WEBP format.
+
+OCR (Optical Character Recognition):
+- Added support for recognizing OCR text font size.
+- Added an option to retain the original document page background image.
+- Added separate OCR options for garbled text and scanned pages.
+
+PDF to JSON:
+- Added support for converting images within tables.
+
+Issues Addressed
+
+Core:
+- Fixed an issue where font replacement in some special documents caused excessive style differences.
+- Fixed a problem where underlines in text were sometimes lost in certain cases.
+
+PDF to Excel:
+- Fixed an issue where the first column width in tables was excessively large in certain cases.
+
+PDF to PowerPoint:
+- Fixed an issue with incorrect text line breaks in certain special cases.
+
+
 ComPDFKit Conversion SDK v3.1.0 Release Date: 19 August 2025
 =====================================================
 
-Enhanceo Features
+Enhanced Features
 
 Core:
 - Added support for recognizing underline and strikethrough styles applied to non-annotation text elements.
@@ -10,7 +54,7 @@ PDF to Word:
 - Added font substitution capability while preserving layout fidelity to the original document.
 - Added support for table border styles, accurately reproducing original PDF table border colors and thickness.
 - Added support for detecting and converting hyphenated word breaks at paragraph line ends.
-- Added support for detecting and converting ordered list styles in the ""(1)"" format.
+- Added support for detecting and converting ordered list styles in the "(1)" format.
 
 PDF to Excel:
 - Added font substitution capability while preserving layout fidelity to the original document.
@@ -25,6 +69,11 @@ PDF to PowerPoint:
 PDF to Image:
 - Added support for TGA, GIF, and JPEG2000 output formats.
 
+OCR:
+- Added support for Cyrillic, Arabic, Tamil, Telugu, and Kannada languages.
+- Improved recognition accuracy for Traditional Chinese.
+
+
 Issues Addressed
 
 Core:
@@ -34,7 +83,7 @@ Core:
 PDF to Word:
 - Fixed an issue where images inside tables could be lost under certain conditions.
 - Fixed an issue where embedded images inside lists could be lost.
-- Fixed an issue where images with ""top and bottom"" text wrapping were positioned incorrectly in some cases.
+- Fixed an issue where images with "top and bottom" text wrapping were positioned incorrectly in some cases.
 - Fixed an issue where hyperlink properties were lost under certain conditions.
 - Fixed an issue where table heights were calculated incorrectly in certain scenarios.
 
@@ -49,6 +98,7 @@ PDF to JSON:
 
 PDF to Markdown:
 - Fixed an issue where text paragraphs could be lost under certain conditions.
+
 
 ComPDFKit Conversion SDK v3.0.0 Release Date: 06 June 2025
 =============================================================
