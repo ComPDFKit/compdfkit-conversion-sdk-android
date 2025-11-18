@@ -50,6 +50,7 @@ import com.compdfkit.conversion.base.ImageType
 import com.compdfkit.conversion.base.JsonOptions
 import com.compdfkit.conversion.base.MarkdownOptions
 import com.compdfkit.conversion.base.OCRLanguage
+import com.compdfkit.conversion.base.OCROption
 import com.compdfkit.conversion.base.PageLayoutMode
 import com.compdfkit.conversion.base.PptOptions
 import com.compdfkit.conversion.base.RtfOptions
@@ -207,6 +208,7 @@ fun TaskDialog(
 
     var enableAiLayout by remember { mutableStateOf(true) }
     var containImage by remember { mutableStateOf(true) }
+    var containPageBackgroundImage by remember { mutableStateOf(true) }
     var formulaToImage by remember { mutableStateOf(false) }
     var jsonContainTable by remember { mutableStateOf(true) }
     var containAnnotation by remember { mutableStateOf(true) }
@@ -221,6 +223,7 @@ fun TaskDialog(
     var htmlPageOption by remember { mutableStateOf(HtmlPageOption.SINGLE_PAGE) }
     var imageColorMode by remember { mutableStateOf(ImageColorMode.COLOR) }
     var imageType by remember { mutableStateOf(ImageType.JPG) }
+    var ocrOption by remember { mutableStateOf(OCROption.ALL) }
     var pageRanges by remember { mutableStateOf("") }
     var isFormatValid by remember { mutableStateOf(true) }
 
@@ -260,6 +263,7 @@ fun TaskDialog(
                         var imageModeExpanded by remember { mutableStateOf(false) }
                         var imageTypeExpanded by remember { mutableStateOf(false) }
                         var languageExpanded by remember { mutableStateOf(false) }
+                        var ocrOptionExpanded by remember { mutableStateOf(false) }
 
                         if (conversionType != ConversionType.IMAGE &&
                             conversionType != ConversionType.SEARCHABLE_PDF) {
@@ -342,7 +346,13 @@ fun TaskDialog(
                             )
                         }
 
-                        if (enableOcr) {
+                        if (enableOcr || conversionType == ConversionType.SEARCHABLE_PDF) {
+                            OptionsCheckbox(
+                                checked = containPageBackgroundImage,
+                                onCheckedChange = { containPageBackgroundImage = it },
+                                label = "Contain Background"
+                            )
+
                             EnumDropdown(
                                 label = "OCR Language",
                                 selected = ocrLanguage,
@@ -353,6 +363,17 @@ fun TaskDialog(
                                 expanded = languageExpanded,
                                 onExpandedChange = { languageExpanded = it },
                                 filter = { it != OCRLanguage.UNKNOWN }
+                            )
+
+                            EnumDropdown(
+                                label = "OCR Option",
+                                selected = ocrOption,
+                                onSelected = {
+                                    ocrOption = it
+                                    ocrOptionExpanded = false
+                                },
+                                expanded = ocrOptionExpanded,
+                                onExpandedChange = { ocrOptionExpanded = it }
                             )
                         }
 
@@ -460,7 +481,10 @@ fun TaskDialog(
                                 formulaToImage,
                                 enableOcr,
                                 pageLayoutMode,
-                                pageRanges
+                                pageRanges,
+                                containPageBackgroundImage,
+                                outputDocumentPerPage = false,
+                                ocrOption
                             )
                             ConversionType.EXCEL -> ExcelOptions(
                                 containImage,
@@ -471,7 +495,10 @@ fun TaskDialog(
                                 pageRanges,
                                 excelAllContent,
                                 excelCsvFormat,
-                                excelWorksheetOption
+                                excelWorksheetOption,
+                                autoCreateFolder = true,
+                                outputDocumentPerPage = false,
+                                ocrOption
                             )
                             ConversionType.PPT -> PptOptions(
                                 containImage,
@@ -479,7 +506,10 @@ fun TaskDialog(
                                 enableAiLayout,
                                 formulaToImage,
                                 enableOcr,
-                                pageRanges
+                                pageRanges,
+                                containPageBackgroundImage,
+                                outputDocumentPerPage = false,
+                                ocrOption
                             )
                             ConversionType.HTML -> HtmlOptions(
                                 containImage,
@@ -489,7 +519,10 @@ fun TaskDialog(
                                 enableOcr,
                                 pageLayoutMode,
                                 pageRanges,
-                                htmlPageOption
+                                htmlPageOption,
+                                containPageBackgroundImage,
+                                outputDocumentPerPage = false,
+                                ocrOption
                             )
                             ConversionType.IMAGE -> ImageOptions(
                                 imageType,
@@ -503,7 +536,9 @@ fun TaskDialog(
                                 containAnnotation,
                                 enableAiLayout,
                                 enableOcr,
-                                pageRanges
+                                pageRanges,
+                                false,
+                                ocrOption
                             )
                             ConversionType.RTF -> RtfOptions(
                                 containImage,
@@ -511,13 +546,18 @@ fun TaskDialog(
                                 enableAiLayout,
                                 formulaToImage,
                                 enableOcr,
-                                pageRanges
+                                pageRanges,
+                                containPageBackgroundImage,
+                                outputDocumentPerPage = false,
+                                ocrOption
                             )
                             ConversionType.TXT -> TxtOptions(
                                 enableAiLayout,
                                 enableOcr,
                                 pageRanges,
-                                txtTableFormat
+                                txtTableFormat,
+                                false,
+                                ocrOption
                             )
                             ConversionType.JSON -> JsonOptions(
                                 containImage,
@@ -525,13 +565,18 @@ fun TaskDialog(
                                 enableAiLayout,
                                 enableOcr,
                                 pageRanges,
-                                jsonContainTable
+                                jsonContainTable,
+                                false,
+                                ocrOption
                             )
                             ConversionType.SEARCHABLE_PDF -> SearchablePdfOptions(
                                 containImage,
                                 true,
                                 formulaToImage,
-                                pageRanges
+                                pageRanges,
+                                containPageBackgroundImage,
+                                false,
+                                ocrOption
                             )
                         }
 
