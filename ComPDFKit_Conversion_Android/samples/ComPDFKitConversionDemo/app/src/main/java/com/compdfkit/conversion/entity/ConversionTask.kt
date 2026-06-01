@@ -9,7 +9,7 @@ import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
 import com.compdfkit.conversion.ComPDFKitConverter
 import com.compdfkit.conversion.ConversionHelper
-import com.compdfkit.conversion.ConverterManager
+import com.compdfkit.conversion.base.ConvertCallback
 import com.compdfkit.conversion.base.ErrorCode
 import com.compdfkit.conversion.base.ExcelOptions
 import com.compdfkit.conversion.base.ExcelWorksheetOption
@@ -17,9 +17,8 @@ import com.compdfkit.conversion.base.HtmlOptions
 import com.compdfkit.conversion.base.ImageOptions
 import com.compdfkit.conversion.base.JsonOptions
 import com.compdfkit.conversion.base.MarkdownOptions
-import com.compdfkit.conversion.base.OCRLanguage
+import com.compdfkit.conversion.base.OfdOptions
 import com.compdfkit.conversion.base.PptOptions
-import com.compdfkit.conversion.base.ProgressCallback
 import com.compdfkit.conversion.base.RtfOptions
 import com.compdfkit.conversion.base.SearchablePdfOptions
 import com.compdfkit.conversion.base.TxtOptions
@@ -36,17 +35,20 @@ data class ConversionTask(
     var progress: MutableState<Int> = mutableIntStateOf(0),
     var completed: MutableState<Int> = mutableIntStateOf(0),
     var options: Any,
-    var ocrLanguage: MutableState<OCRLanguage> = mutableStateOf(OCRLanguage.AUTO)
-) : ProgressCallback {
+) : ConvertCallback {
 
     var outputUri: Uri? = null
     var errorCode: ErrorCode? = null
+    @Volatile
+    var cancelled: Boolean = false
 
     override fun onProgress(current: Int, total: Int) {
         progress.value = total
         completed.value = current
         Log.d("ConversionTask", "Converting $path: ${completed.value}/${progress.value}")
     }
+
+    override fun isCancelled(): Boolean = cancelled
 
     @RequiresApi(Build.VERSION_CODES.Q)
     fun startTask() {
@@ -63,30 +65,31 @@ data class ConversionTask(
 
         val outputPath = PathUtils.getOutputPath(path, type, isNeedZip, isCSV)
         status.value = ConversionStatus.CONVERTING
-        ConverterManager.setProgress(this)
-        ConverterManager.setOCRLanguage(ocrLanguage.value)
         errorCode = when(type) {
             ConversionType.WORD ->
-                ComPDFKitConverter.startPDFToWord(path, "", outputPath, options as WordOptions)
+                ComPDFKitConverter.startPDFToWord(path, "", outputPath, options as WordOptions, this)
             ConversionType.EXCEL ->
-                ComPDFKitConverter.startPDFToExcel(path, "", outputPath, options as ExcelOptions)
+                ComPDFKitConverter.startPDFToExcel(path, "", outputPath, options as ExcelOptions, this)
             ConversionType.PPT ->
-                ComPDFKitConverter.startPDFToPpt(path, "", outputPath, options as PptOptions)
+                ComPDFKitConverter.startPDFToPpt(path, "", outputPath, options as PptOptions, this)
             ConversionType.HTML ->
-                ComPDFKitConverter.startPDFToHtml(path, "", outputPath, options as HtmlOptions)
+                ComPDFKitConverter.startPDFToHtml(path, "", outputPath, options as HtmlOptions, this)
             ConversionType.IMAGE ->
-                ComPDFKitConverter.startPDFToImage(path, "", outputPath, options as ImageOptions)
+                ComPDFKitConverter.startPDFToImage(path, "", outputPath, options as ImageOptions, this)
             ConversionType.MARKDOWN ->
-                ComPDFKitConverter.startPDFToMarkdown(path, "", outputPath, options as MarkdownOptions)
+                ComPDFKitConverter.startPDFToMarkdown(path, "", outputPath, options as MarkdownOptions, this)
             ConversionType.RTF ->
-                ComPDFKitConverter.startPDFToRtf(path, "", outputPath, options as RtfOptions)
+                ComPDFKitConverter.startPDFToRtf(path, "", outputPath, options as RtfOptions, this)
             ConversionType.TXT ->
-                ComPDFKitConverter.startPDFToTxt(path, "", outputPath, options as TxtOptions)
+                ComPDFKitConverter.startPDFToTxt(path, "", outputPath, options as TxtOptions, this)
             ConversionType.JSON ->
-                ComPDFKitConverter.startPDFToJson(path, "", outputPath, options as JsonOptions)
+                ComPDFKitConverter.startPDFToJson(path, "", outputPath, options as JsonOptions, this)
             ConversionType.SEARCHABLE_PDF ->
                 ComPDFKitConverter.startPDFToSearchablePdf(
-                    path, "", outputPath, options as SearchablePdfOptions)
+                    path, "", outputPath, options as SearchablePdfOptions, this)
+            ConversionType.OFD ->
+                ComPDFKitConverter.startPDFToOfd(
+                    path, "", outputPath, options as OfdOptions, this)
         }
 
         status.value = if (errorCode == ErrorCode.SUCCESS) {

@@ -75,7 +75,7 @@ fun ConvertMainPage() {
             .background(MaterialTheme.colorScheme.background),
         topBar = {
             TopAppBar(
-                title = { Text("ComPDF Conversion SDK v3.2.0") },
+                title = { Text("ComPDF Conversion SDK v4.0.0") },
                 actions = {
                     IconButton(
                         onClick = {

@@ -79,6 +79,7 @@ class PathUtils {
                 ConversionType.JSON -> ".json"
                 ConversionType.SEARCHABLE_PDF -> ".pdf"
                 ConversionType.MARKDOWN -> ".md"
+                ConversionType.OFD -> ".ofd"
             }
 
             if (isCSV) {
