@@ -2,7 +2,6 @@ package com.compdfkit.conversion
 
 import android.content.Context
 import android.util.Log
-import com.compdfkit.conversion.base.OCRLanguage
 import java.io.File
 import java.io.FileOutputStream
 
@@ -34,7 +33,8 @@ class ConversionHelper {
                 }
             }
             val modelDir = File(context.filesDir, "resource/models/documentai.model").absolutePath
-            ConverterManager.setAIModel(modelDir, OCRLanguage.ENGLISH)
+            ConverterManager.setAIModel(modelDir)
+            ConverterManager.setLogger(enableInfo = true, enableWarning = true)
             isInstalled = true
         }
     }

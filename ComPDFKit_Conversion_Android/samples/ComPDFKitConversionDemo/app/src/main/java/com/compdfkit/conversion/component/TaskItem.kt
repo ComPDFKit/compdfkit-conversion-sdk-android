@@ -80,10 +80,14 @@ fun TaskItem(
                     textAlign = TextAlign.Start
                 )
 
-                val progress: Float = if (task.completed.value > 0) {
-                    task.completed.value.toFloat() / task.progress.value.toFloat() * 100
+                val progress: Float = if (task.status.value != ConversionStatus.SUCCESS) {
+                    if (task.completed.value > 0) {
+                        task.completed.value.toFloat() / task.progress.value.toFloat() * 100
+                    } else {
+                        0f
+                    }
                 } else {
-                    0f
+                    100f
                 }
 
                 Text(

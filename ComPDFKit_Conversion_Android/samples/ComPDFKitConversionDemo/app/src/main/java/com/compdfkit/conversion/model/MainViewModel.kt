@@ -32,6 +32,4 @@ class MainViewModel : ViewModel() {
     fun addTask(task: ConversionTask) {
         tasks.add(task)
     }
-
-    // 其他操作函数...
 }

@@ -1,3 +1,48 @@
+ComPDFKit Conversion SDK v4.0.0 Release Date: 30 March 2026
+=====================================================
+
+Enhanced Features
+
+Core:
+- Added support for external multi-threaded invocation of conversion APIs.
+
+PDF to Word:
+- Enhanced layout performance when OCR is enabled.
+- Added support for Table of Contents styles with in-document hyperlink navigation.
+- Added support for custom font name configuration.
+- Improved list conversion accuracy.
+- Improved header and footer conversion quality.
+
+PDF to Excel:
+- Added support for custom font name configuration.
+
+PDF to PowerPoint:
+- Added support for custom font name configuration.
+
+PDF to Searchable PDF:
+- Improved layout rendering quality.
+- Reduced output PDF file size.
+- Added support for transparent text layers.
+
+PDF to Searchable OFD:
+- Introduced support for converting PDF to searchable OFD format.
+
+Issues Addressed
+
+Core:
+- Fixed an issue where Path graphics and text styles were duplicated during conversion.
+- Fixed an issue where Path objects were incorrectly merged with image objects.
+
+PDF to Word:
+- Fixed layout issues in Thai document conversion.
+- Fixed an issue where extra blank pages were generated when converting image-only PDFs.
+
+PDF to Markdown:
+- Fixed incorrect conversion of third-level list items.
+
+Image to Others:
+- Fixed incorrect table background color recognition when processing BMP images.
+
 ComPDFKit Conversion SDK v3.2.0 Release Date: 17 November 2025
 =====================================================
 

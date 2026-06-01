@@ -51,6 +51,7 @@ import com.compdfkit.conversion.base.JsonOptions
 import com.compdfkit.conversion.base.MarkdownOptions
 import com.compdfkit.conversion.base.OCRLanguage
 import com.compdfkit.conversion.base.OCROption
+import com.compdfkit.conversion.base.OfdOptions
 import com.compdfkit.conversion.base.PageLayoutMode
 import com.compdfkit.conversion.base.PptOptions
 import com.compdfkit.conversion.base.RtfOptions
@@ -217,6 +218,7 @@ fun TaskDialog(
     var enableOcr by remember { mutableStateOf(false) }
     var txtTableFormat by remember { mutableStateOf(true) }
     var imagePathEnhance by remember { mutableStateOf(true) }
+    var transparentText by remember { mutableStateOf(false) }
     var imageScaling by remember { mutableFloatStateOf(1.0f) }
     var pageLayoutMode by remember { mutableStateOf(PageLayoutMode.FLOW) }
     var excelWorksheetOption by remember { mutableStateOf(ExcelWorksheetOption.FOR_TABLE) }
@@ -227,7 +229,7 @@ fun TaskDialog(
     var pageRanges by remember { mutableStateOf("") }
     var isFormatValid by remember { mutableStateOf(true) }
 
-    var ocrLanguage by remember { mutableStateOf(OCRLanguage.AUTO) }
+    var ocrLanguage by remember { mutableStateOf(OCRLanguage.ENGLISH) }
 
     if (showDialog) {
         AlertDialog(
@@ -343,6 +345,14 @@ fun TaskDialog(
                                 checked = enableOcr,
                                 onCheckedChange = { enableOcr = it },
                                 label = "Enable OCR"
+                            )
+                        }
+
+                        if (conversionType == ConversionType.SEARCHABLE_PDF) {
+                            OptionsCheckbox(
+                                checked = transparentText,
+                                onCheckedChange = { transparentText = it },
+                                label = "Transparent Text"
                             )
                         }
 
@@ -484,7 +494,9 @@ fun TaskDialog(
                                 pageRanges,
                                 containPageBackgroundImage,
                                 outputDocumentPerPage = false,
-                                ocrOption
+                                ocrOption,
+                                "",
+                                listOf(ocrLanguage)
                             )
                             ConversionType.EXCEL -> ExcelOptions(
                                 containImage,
@@ -498,7 +510,9 @@ fun TaskDialog(
                                 excelWorksheetOption,
                                 autoCreateFolder = true,
                                 outputDocumentPerPage = false,
-                                ocrOption
+                                ocrOption,
+                                "",
+                                listOf(ocrLanguage)
                             )
                             ConversionType.PPT -> PptOptions(
                                 containImage,
@@ -509,7 +523,9 @@ fun TaskDialog(
                                 pageRanges,
                                 containPageBackgroundImage,
                                 outputDocumentPerPage = false,
-                                ocrOption
+                                ocrOption,
+                                "",
+                                listOf(ocrLanguage)
                             )
                             ConversionType.HTML -> HtmlOptions(
                                 containImage,
@@ -522,7 +538,8 @@ fun TaskDialog(
                                 htmlPageOption,
                                 containPageBackgroundImage,
                                 outputDocumentPerPage = false,
-                                ocrOption
+                                ocrOption,
+                                listOf(ocrLanguage)
                             )
                             ConversionType.IMAGE -> ImageOptions(
                                 imageType,
@@ -538,7 +555,8 @@ fun TaskDialog(
                                 enableOcr,
                                 pageRanges,
                                 false,
-                                ocrOption
+                                ocrOption,
+                                listOf(ocrLanguage)
                             )
                             ConversionType.RTF -> RtfOptions(
                                 containImage,
@@ -549,7 +567,9 @@ fun TaskDialog(
                                 pageRanges,
                                 containPageBackgroundImage,
                                 outputDocumentPerPage = false,
-                                ocrOption
+                                ocrOption,
+                                "",
+                                listOf(ocrLanguage)
                             )
                             ConversionType.TXT -> TxtOptions(
                                 enableAiLayout,
@@ -557,7 +577,8 @@ fun TaskDialog(
                                 pageRanges,
                                 txtTableFormat,
                                 false,
-                                ocrOption
+                                ocrOption,
+                                listOf(ocrLanguage)
                             )
                             ConversionType.JSON -> JsonOptions(
                                 containImage,
@@ -567,7 +588,8 @@ fun TaskDialog(
                                 pageRanges,
                                 jsonContainTable,
                                 false,
-                                ocrOption
+                                ocrOption,
+                                listOf(ocrLanguage)
                             )
                             ConversionType.SEARCHABLE_PDF -> SearchablePdfOptions(
                                 containImage,
@@ -576,7 +598,22 @@ fun TaskDialog(
                                 pageRanges,
                                 containPageBackgroundImage,
                                 false,
-                                ocrOption
+                                transparentText,
+                                ocrOption,
+                                listOf(ocrLanguage)
+                            )
+                            ConversionType.OFD -> OfdOptions(
+                                containImage,
+                                containAnnotation,
+                                enableAiLayout,
+                                formulaToImage,
+                                enableOcr,
+                                true,
+                                pageRanges,
+                                containPageBackgroundImage,
+                                outputDocumentPerPage = false,
+                                ocrOption,
+                                listOf(ocrLanguage)
                             )
                         }
 
@@ -587,8 +624,7 @@ fun TaskDialog(
                             status = mutableStateOf(ConversionStatus.READY),
                             progress = mutableIntStateOf(0),
                             completed = mutableIntStateOf(0),
-                            options = tempOptions,
-                            ocrLanguage = mutableStateOf(ocrLanguage)
+                            options = tempOptions
                         )
                         Log.d("TaskDialog", "onConfirm: $newTask")
                         onConfirm(newTask)

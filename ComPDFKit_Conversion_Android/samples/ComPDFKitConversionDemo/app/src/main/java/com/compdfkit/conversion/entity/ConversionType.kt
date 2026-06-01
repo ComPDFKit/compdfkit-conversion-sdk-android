@@ -10,5 +10,6 @@ enum class ConversionType {
     RTF,
     TXT,
     JSON,
-    SEARCHABLE_PDF
+    SEARCHABLE_PDF,
+    OFD
 }
