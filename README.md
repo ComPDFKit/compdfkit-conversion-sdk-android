@@ -2,7 +2,7 @@
 
 As part of the KDAN ecosystem, ComPDF Conversion SDK empowers your Android applications to convert PDF files into editable Office documents, images, HTML, and more — through a straightforward Kotlin API. Whether you're building a document viewer, a file management app, or an enterprise productivity tool, you can integrate high-fidelity PDF conversion capabilities directly into your mobile app, preserving layout, tables, and formatting throughout the conversion process.
 
-> If you find this library helpful, please consider giving us a ⭐ **Star** on GitHub! Have feedback or questions? Join the conversation in our [Discussions](https://github.com/orgs/ComPDFKit/discussions).
+> If you find this library helpful, please consider giving us a ⭐ **Star** on GitHub! Have feedback or questions? Join the conversation in our [Discussions](https://github.com/ComPDFKit/compdfkit-conversion-sdk-android/discussions).
 
 **Supported Features**
 
